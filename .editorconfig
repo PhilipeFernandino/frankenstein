@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# COIMBRA0106: Concrete IService should not be a Component unless it inherit from Actor.
+dotnet_diagnostic.COIMBRA0106.severity = none
