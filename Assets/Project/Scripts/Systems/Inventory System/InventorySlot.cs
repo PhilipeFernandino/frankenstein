@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utils;
+using static UnityEditor.Progress;
 
 namespace Systems.Inventory_System
 {
@@ -16,7 +17,17 @@ namespace Systems.Inventory_System
         private IInventoryItemFactoryService _inventoryItemFactory;
 
         public bool HasItem => _item != null;
-        public InventoryItem CurrentItem => _item;
+        public InventoryItem Item
+        {
+            get => _item;
+            set
+            {
+                _item = value;
+                ItemChanged?.Invoke(_item);
+            }
+        }
+
+        public event Action<InventoryItem> ItemChanged; 
 
         public int TryAddOrStackItem(InventoryItemData itemData, in int stack, Transform parent = null)
         {
@@ -26,7 +37,7 @@ namespace Systems.Inventory_System
             {
                 if (MatchItemData(itemData))
                 {
-                    totalAmountAdded = Mathf.Clamp(stack, 0, CurrentItem.StackCurrentCapacity);
+                    totalAmountAdded = Mathf.Clamp(stack, 0, Item.StackCurrentCapacity);
                     _item.Stack += totalAmountAdded;
                 }
             }
@@ -36,20 +47,20 @@ namespace Systems.Inventory_System
                 totalAmountAdded = Mathf.Clamp(stack, 0, item.StackCurrentCapacity);
                 item.Stack = totalAmountAdded;
                 item.SetupInventorySlot(this);
-                _item = item;
+                Item = item;
             }
-            
+
             return totalAmountAdded;
         }
 
         public void SetInventoryItem(InventoryItem inventoryItem)
         {
-            _item = inventoryItem;
+            Item = inventoryItem;
         }
 
         public void Empty()
         {
-            _item = null;
+            Item = null;
         }
 
         public bool MatchItemData(InventoryItemData itemData)

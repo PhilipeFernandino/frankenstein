@@ -1,6 +1,8 @@
 ﻿using Coimbra;
 using Coimbra.Services;
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
+using System;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -19,8 +21,12 @@ namespace Systems.Inventory_System
         private int _hotbarSlotsCount;
 
         [SerializeField, ReadOnly] private List<InventorySlot> _inventorySlots = new();
+        
+        private HashSet<InventorySlot> _dirtySlots;
 
         private IInventoryItemFactoryService _inventoryItemFactory;
+
+        public List<InventorySlot> InventorySlots => _inventorySlots;
 
         public void CreateWithDrag(InventoryItemData itemData, in int stack)
         {
@@ -32,6 +38,11 @@ namespace Systems.Inventory_System
         public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int totalAmountStacked)
         {
             totalAmountStacked = slot.TryAddOrStackItem(itemData, stack, transform);
+
+            if (totalAmountStacked > 0)
+            {
+                DirtyStorage(slot);
+            }
         }
 
         public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked)
@@ -44,9 +55,13 @@ namespace Systems.Inventory_System
             {
                 for (int i = 0; i < _inventorySlots.Count; i++)
                 {
-                    leftToStack -= _inventorySlots[i].TryAddOrStackItem(itemData, leftToStack, transform);
+                    AddToSlot(_inventorySlots[i], itemData, leftToStack, out int amountStacked);
+                    leftToStack -= amountStacked;
+                    
                     if (leftToStack == 0)
+                    {
                         return;
+                    }
                 }
             }
 
@@ -57,11 +72,31 @@ namespace Systems.Inventory_System
 
                 if (!slot.HasItem)
                 {
-                    leftToStack -= _inventorySlots[i].TryAddOrStackItem(itemData, leftToStack, transform);
+                    AddToSlot(_inventorySlots[i], itemData, leftToStack, out int amountStacked);
+                    leftToStack -= amountStacked;
+
                     if (leftToStack == 0)
+                    {
                         return;
+                    }
                 }
             }
+        }
+
+        private void DirtyStorage(InventorySlot dirtySlot)
+        {
+            Debug.Log($"{GetType()} - {dirtySlot} is dirty");
+            _dirtySlots.Add(dirtySlot);
+        }
+
+        private void LateUpdate()
+        {
+            if (_dirtySlots.Count > 0)
+            {
+                new HotbarChanged(_dirtySlots).Invoke(this);
+                _dirtySlots.Clear();
+            }
+
         }
 
         #region Input
@@ -82,6 +117,8 @@ namespace Systems.Inventory_System
         protected override void OnInitialize()
         {
             base.OnInitialize();
+
+            _dirtySlots = new(_inventorySlots.Count);
 
             SetStorageActive(false);
             GetInventorySlots();

@@ -62,7 +62,7 @@ namespace Systems.Inventory_System
 
         public void SetupInventorySlot(InventorySlot inventorySlot)
         {
-            if (_slot != null && _slot.CurrentItem != null && _slot.CurrentItem == this)
+            if (_slot != null && _slot.Item != null && _slot.Item == this)
             {
                 _slot.Empty();
             }
@@ -82,7 +82,6 @@ namespace Systems.Inventory_System
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clickd");
             if (_isDragging)
             {
                 PointerClickWhileDragEventHandler(eventData);

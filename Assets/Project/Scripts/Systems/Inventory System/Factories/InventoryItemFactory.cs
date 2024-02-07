@@ -19,14 +19,7 @@ namespace Systems.Inventory_System
         protected override void OnInitialize()
         {
             base.OnInitialize();
-            Debug.Log("On Initialize");
             ServiceLocator.Set<IInventoryItemFactoryService>(this);
-        }
-
-        protected override void OnSpawn()
-        {
-            base.OnSpawn();
-            Debug.Log("On Spawn");
         }
     }
 
