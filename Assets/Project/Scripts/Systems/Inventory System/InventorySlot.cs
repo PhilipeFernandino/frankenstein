@@ -1,59 +1,48 @@
-﻿using TMPro;
+﻿using NaughtyAttributes;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Utils;
 
 namespace Systems.Inventory_System
 {
-    public class InventorySlot : MonoBehaviour, IDropHandler
+    [RequireComponent(typeof(Image))]
+    public class InventorySlot : MonoBehaviour
     {
-        private IInventoryItem _item;
+        [SerializeField, ReadOnly] private Image _image;
+
+        private InventoryItem _item;
+        private IInventoryItemFactoryService _inventoryItemFactory;
 
         public bool HasItem => _item != null;
-        public IInventoryItem CurrentItem => _item;
+        public InventoryItem CurrentItem => _item;
 
-        public void OnDrop(PointerEventData eventData)
+        public int TryAddOrStackItem(InventoryItemData itemData, in int stack, Transform parent = null)
         {
-            if (eventData.pointerDrag.TryGetComponent(out IInventoryItem newItem))
+            int totalAmountAdded = 0;
+
+            if (_item != null)
             {
-                if (HasItem)
+                if (MatchItemData(itemData))
                 {
-                    // Switch
-                    if (newItem.CurrentSlot != null)
-                    {
-                        _item.SetupInventorySlot(newItem.CurrentSlot);
-                        newItem.SetupInventorySlot(this);
-                    }
+                    totalAmountAdded = Mathf.Clamp(stack, 0, CurrentItem.StackCurrentCapacity);
+                    _item.Stack += totalAmountAdded;
                 }
-                else
-                {
-                    newItem.SetupInventorySlot(this);
-                }
-            }
-
-
-            Debug.Log($"{gameObject.name} - {GetType()} dropped here");
-        }
-
-        public void StackItem(InventoryItemData itemData, int stack)
-        {
-            if (itemData == _item.ItemData)
-            {
-                _item.Stack += stack;
             }
             else
             {
-                Debug.LogError($"{GetType()} error stacking {itemData}, stack: {stack}, currentStack: {_item.Stack}");
+                var item = _inventoryItemFactory.Create(itemData, parent);
+                totalAmountAdded = Mathf.Clamp(stack, 0, item.StackCurrentCapacity);
+                item.Stack = totalAmountAdded;
+                item.SetupInventorySlot(this);
+                _item = item;
             }
+            
+            return totalAmountAdded;
         }
 
-        public void AddItem(InventoryItem item, int stack)
-        {
-            _item = item;
-            _item.Stack = stack;
-            item.SetupInventorySlot(this);
-        }
-
-        public void SetInventoryItem(IInventoryItem inventoryItem)
+        public void SetInventoryItem(InventoryItem inventoryItem)
         {
             _item = inventoryItem;
         }
@@ -63,5 +52,19 @@ namespace Systems.Inventory_System
             _item = null;
         }
 
+        public bool MatchItemData(InventoryItemData itemData)
+        {
+            return _item != null && _item.ItemData == itemData;
+        }
+        
+        private void Awake()
+        {
+            _image = GetComponent<Image>();
+        }
+
+        private void Start()
+        {
+            _inventoryItemFactory = ServiceLocatorUtilities.GetServiceAssert<IInventoryItemFactoryService>();
+        }
     }
 }

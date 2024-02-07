@@ -1,0 +1,39 @@
+﻿using UnityEngine;
+
+namespace UI
+{
+    [RequireComponent(typeof(Canvas))]
+    public class UIDynamicCanvas : MonoBehaviour
+    {
+        [SerializeField] private bool _hideSelfOnAwake = true;
+        
+        private Canvas _canvas;
+
+        public Canvas Canvas => _canvas;
+
+        public virtual void ShowSelf()
+        {
+            _canvas.enabled = true;
+        }
+
+        public virtual void HideSelf()
+        {
+            _canvas.enabled = false;
+        }
+
+        public virtual void ToggleSelf()
+        {
+            _canvas.enabled = !_canvas.enabled;
+        }
+
+        protected virtual void Awake()
+        {
+            _canvas = GetComponent<Canvas>();
+
+            if (_hideSelfOnAwake)
+            {
+                HideSelf();
+            }
+        }
+    }
+}

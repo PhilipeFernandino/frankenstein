@@ -1,13 +1,17 @@
+using Coimbra;
+using Coimbra.Services;
 using NaughtyAttributes;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static Utils.ServiceLocatorUtilities;
 
 namespace Systems.Inventory_System
 {
     [RequireComponent(typeof(Image))]
-    public class InventoryItem : MonoBehaviour, IInventoryItem, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class InventoryItem : MonoBehaviour, IPointerClickHandler
     {
         [Header("Object References")]
         [SerializeField] private TextMeshProUGUI _stackText;
@@ -20,9 +24,13 @@ namespace Systems.Inventory_System
         [SerializeField, ReadOnly] private int _stack;
 
         private Vector3 _originalPosition;
-        private bool _settingUpInventorySlot = false;
+        private bool _isDragging;
+
+        private IInventoryItemFactoryService _inventoryItemFactoryService;
+        private IInventoryManagerService _inventoryManagerService;
 
         public InventorySlot CurrentSlot => _slot;
+        public int StackCurrentCapacity => ItemData.MaxStack - Stack;
 
         public InventoryItemData ItemData
         {
@@ -52,57 +60,9 @@ namespace Systems.Inventory_System
             }
         }
 
-        private void Start()
-        {
-            _slot = GetComponentInParent<InventorySlot>();
-            if (_slot != null)
-            {
-                _slot.SetInventoryItem(this);
-            }
-        }
-
-        private void Reset()
-        {
-            _iconImage = GetComponent<Image>();
-        }
-
-        public void Setup(InventoryItemData itemData, Transform parentOnDrag)
-        {
-            _parentWhenDragging = parentOnDrag;
-            ItemData = itemData;
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _iconImage.raycastTarget = false;
-            _originalPosition = transform.position;
-            transform.SetParent(_parentWhenDragging, true);
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            transform.position = eventData.position;
-        }
-
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            _iconImage.raycastTarget = true;
-
-            if (!_settingUpInventorySlot)
-            {
-                transform.position = _originalPosition;
-                transform.SetParent(_slot.transform, true);
-            }
-
-            _settingUpInventorySlot = false;
-        }
-
         public void SetupInventorySlot(InventorySlot inventorySlot)
         {
-            _settingUpInventorySlot = true;
-
-            if (_slot != null && _slot.CurrentItem != null && _slot.CurrentItem == (IInventoryItem)this)
+            if (_slot != null && _slot.CurrentItem != null && _slot.CurrentItem == this)
             {
                 _slot.Empty();
             }
@@ -111,6 +71,139 @@ namespace Systems.Inventory_System
             _slot.SetInventoryItem(this);
             transform.SetParent(_slot.transform, false);
             transform.position = _slot.transform.position;
+        }
+
+        public void Setup(InventoryItemData itemData, Transform parentOnDrag)
+        {
+            _parentWhenDragging = parentOnDrag;
+            ItemData = itemData;
+        }
+
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+
+            if (_isDragging)
+            {
+                if (eventData.button == PointerEventData.InputButton.Left)
+                {
+                    DropItem();
+                }
+                else if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    if (Stack > 1)
+                    {
+                        if (TryGetInventorySlotRaycast(out InventorySlot slot))
+                        {
+                            int amountAdded = slot.TryAddOrStackItem(ItemData, 1, _parentWhenDragging);
+                            Stack -= amountAdded;
+                        }
+                    }
+                    else
+                    {
+                        DropItem();
+                    }
+                }
+            }
+            else
+            {
+                if (eventData.button == PointerEventData.InputButton.Left)
+                {
+                    StartDrag();
+                }
+                else if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    if (Stack > 1)
+                    {
+                        int newItemStack = Stack;
+                        Stack /= 2;
+                        newItemStack -= Stack;
+                        _inventoryManagerService.CreateWithDrag(ItemData, newItemStack);
+                    }
+                    else
+                    {
+                        StartDrag();
+                    }
+                }
+            }
+        }
+
+
+        public void StartDrag()
+        {
+            Debug.Log($"{GetType()} - Start Drag");
+
+            _isDragging = true;
+            _originalPosition = transform.position;
+            transform.SetParent(_parentWhenDragging, false);
+
+            Drag();
+
+            if (_slot != null)
+            {
+                _slot.Empty();
+            }
+        }
+
+
+        public void DropItem()
+        {
+            Debug.Log($"{GetType()} - End Drag");
+
+            if (TryGetInventorySlotRaycast(out InventorySlot inventorySlot))
+            {
+                int amountAdded = inventorySlot.TryAddOrStackItem(ItemData, Stack, _parentWhenDragging);
+
+                if (amountAdded == Stack)
+                {
+                    gameObject.Dispose(false);
+                }
+                else
+                {
+                    Stack -= amountAdded;
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            _iconImage = GetComponent<Image>();
+        }
+
+        private void Start()
+        {
+            _inventoryItemFactoryService = GetServiceAssert<IInventoryItemFactoryService>();
+            _inventoryManagerService = GetServiceAssert<IInventoryManagerService>();
+
+        }
+
+        private void Update()
+        {
+            Drag();
+        }
+
+        private void Drag()
+        {
+            if (_isDragging)
+            {
+                transform.position = Input.mousePosition;
+            }
+        }
+
+        private static bool TryGetInventorySlotRaycast(out InventorySlot inventorySlot)
+        {
+            var results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(new(EventSystem.current) { position = Input.mousePosition }, results);
+            foreach (var hits in results)
+            {
+                if (hits.gameObject.TryGetComponent(out inventorySlot))
+                {
+                    Debug.Log($"{nameof(InventoryItem)} - found {inventorySlot.name}");
+                    return true;
+                }
+            }
+            inventorySlot = null;
+            return false;
         }
     }
 }

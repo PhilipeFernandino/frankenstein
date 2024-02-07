@@ -1,21 +1,37 @@
-﻿using Coimbra.Services;
+﻿using Coimbra;
+using Coimbra.Services;
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UI;
+using static Utils.ServiceLocatorUtilities;
+using UnityEngine.InputSystem;
 
 namespace Systems.Inventory_System
 {
-    public class InventoryManager : MonoBehaviour
+    public class InventoryManager : Actor, IInventoryManagerService
     {
         [SerializeField] private Transform _hotbarSlotsParent;
         [SerializeField] private Transform _storageSlotsParent;
+        [SerializeField] private UIDynamicCanvas _storageCanvas;
 
         private int _hotbarSlotsCount;
 
         [SerializeField, ReadOnly] private List<InventorySlot> _inventorySlots = new();
 
         private IInventoryItemFactoryService _inventoryItemFactory;
+
+        public void CreateWithDrag(InventoryItemData itemData, in int stack)
+        {
+            var itemOnDrag = _inventoryItemFactory.Create(itemData, transform);
+            itemOnDrag.Stack = stack;
+            itemOnDrag.StartDrag();
+        }
+
+        public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int totalAmountStacked)
+        {
+            totalAmountStacked = slot.TryAddOrStackItem(itemData, stack, transform);
+        }
 
         public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked)
         {
@@ -27,25 +43,9 @@ namespace Systems.Inventory_System
             {
                 for (int i = 0; i < _inventorySlots.Count; i++)
                 {
-                    var slot = _inventorySlots[i];
-
-                    if (slot.CurrentItem != null && slot.CurrentItem.ItemData == itemData)
-                    {
-                        int canStack = itemData.MaxStack - slot.CurrentItem.Stack;
-
-                        if (canStack >= leftToStack)
-                        {
-                            totalAmountStacked = stack;
-                            slot.StackItem(itemData, leftToStack);
-                            return;
-                        }
-                        else
-                        {
-                            leftToStack -= canStack;
-                            totalAmountStacked += canStack;
-                            slot.StackItem(itemData, canStack);
-                        }
-                    }
+                    leftToStack -= _inventorySlots[i].TryAddOrStackItem(itemData, leftToStack, transform);
+                    if (leftToStack == 0)
+                        return;
                 }
             }
 
@@ -56,31 +56,37 @@ namespace Systems.Inventory_System
 
                 if (!slot.HasItem)
                 {
-                    int canStack = itemData.MaxStack;
-
-                    if (canStack >= leftToStack)
-                    {
-                        totalAmountStacked = stack;
-                        slot.AddItem(_inventoryItemFactory.Create(itemData, transform), leftToStack);
+                    leftToStack -= _inventorySlots[i].TryAddOrStackItem(itemData, leftToStack, transform);
+                    if (leftToStack == 0)
                         return;
-                    }
-                    else
-                    {
-                        leftToStack -= canStack;
-                        totalAmountStacked += canStack;
-                        slot.AddItem(_inventoryItemFactory.Create(itemData, transform), canStack);
-                    }
                 }
             }
         }
 
-        private void Start()
+        #region Input
+        public void ToggleStorage()
         {
-            _inventoryItemFactory = ServiceLocator.Get<IInventoryItemFactoryService>();
+            _storageCanvas.ToggleSelf();
+        }
+        #endregion
+
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            GetInventorySlots();
+
+            ServiceLocator.Set<IInventoryManagerService>(this);
+        }
+
+        protected override void OnSpawn()
+        {
+            base.OnSpawn();
+            _inventoryItemFactory = GetServiceAssert<IInventoryItemFactoryService>();
         }
 
         [Button]
-        private void Reset()
+        private void GetInventorySlots()
         {
             _inventorySlots.Clear();
 
@@ -96,5 +102,13 @@ namespace Systems.Inventory_System
                 _inventorySlots.Add(child.GetComponent<InventorySlot>());
             }
         }
+    }
+
+    [DynamicService]
+    public interface IInventoryManagerService : IService
+    {
+        public void CreateWithDrag(InventoryItemData itemData, in int stack);
+        public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked);
+        public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int amountAdded);
     }
 }
