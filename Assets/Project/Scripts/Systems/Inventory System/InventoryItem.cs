@@ -82,48 +82,58 @@ namespace Systems.Inventory_System
 
         public void OnPointerClick(PointerEventData eventData)
         {
-
+            Debug.Log("Clickd");
             if (_isDragging)
             {
-                if (eventData.button == PointerEventData.InputButton.Left)
-                {
-                    DropItem();
-                }
-                else if (eventData.button == PointerEventData.InputButton.Right)
-                {
-                    if (Stack > 1)
-                    {
-                        if (TryGetInventorySlotRaycast(out InventorySlot slot))
-                        {
-                            int amountAdded = slot.TryAddOrStackItem(ItemData, 1, _parentWhenDragging);
-                            Stack -= amountAdded;
-                        }
-                    }
-                    else
-                    {
-                        DropItem();
-                    }
-                }
+                PointerClickWhileDragEventHandler(eventData);
             }
             else
             {
-                if (eventData.button == PointerEventData.InputButton.Left)
+                PointerClickNotDragEventHandler(eventData);
+            }
+        }
+
+        private void PointerClickWhileDragEventHandler(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                DropItem();
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                if (Stack > 1)
+                {
+                    if (TryGetInventorySlotRaycast(out InventorySlot slot))
+                    {
+                        int amountAdded = slot.TryAddOrStackItem(ItemData, 1, _parentWhenDragging);
+                        Stack -= amountAdded;
+                    }
+                }
+                else
+                {
+                    DropItem();
+                }
+            }
+        }
+
+        private void PointerClickNotDragEventHandler(PointerEventData eventData)
+        {
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                StartDrag();
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                if (Stack > 1)
+                {
+                    int newItemStack = Stack;
+                    Stack /= 2;
+                    newItemStack -= Stack;
+                    _inventoryManagerService.CreateWithDrag(ItemData, newItemStack);
+                }
+                else
                 {
                     StartDrag();
-                }
-                else if (eventData.button == PointerEventData.InputButton.Right)
-                {
-                    if (Stack > 1)
-                    {
-                        int newItemStack = Stack;
-                        Stack /= 2;
-                        newItemStack -= Stack;
-                        _inventoryManagerService.CreateWithDrag(ItemData, newItemStack);
-                    }
-                    else
-                    {
-                        StartDrag();
-                    }
                 }
             }
         }

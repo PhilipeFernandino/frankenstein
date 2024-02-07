@@ -2,10 +2,10 @@
 using Coimbra.Services;
 using NaughtyAttributes;
 using System.Collections.Generic;
-using UnityEngine;
 using UI;
+using UnityEngine;
+using UnityEngine.UI;
 using static Utils.ServiceLocatorUtilities;
-using UnityEngine.InputSystem;
 
 namespace Systems.Inventory_System
 {
@@ -14,6 +14,7 @@ namespace Systems.Inventory_System
         [SerializeField] private Transform _hotbarSlotsParent;
         [SerializeField] private Transform _storageSlotsParent;
         [SerializeField] private UIDynamicCanvas _storageCanvas;
+        [SerializeField] private HotbarManager _hotbarManager;
 
         private int _hotbarSlotsCount;
 
@@ -67,13 +68,22 @@ namespace Systems.Inventory_System
         public void ToggleStorage()
         {
             _storageCanvas.ToggleSelf();
+            _hotbarManager.ToggleClickCapture();
         }
+
         #endregion
+
+        public void SetStorageActive(bool state)
+        {
+            _storageCanvas.SetActiveState(state);
+            _hotbarManager.SetClickCaptureActive(state);
+        }
 
         protected override void OnInitialize()
         {
             base.OnInitialize();
 
+            SetStorageActive(false);
             GetInventorySlots();
 
             ServiceLocator.Set<IInventoryManagerService>(this);

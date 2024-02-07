@@ -26,6 +26,11 @@ namespace UI
             _canvas.enabled = !_canvas.enabled;
         }
 
+        public virtual void SetActiveState(bool state)
+        {
+            _canvas.enabled = state;
+        }
+
         protected virtual void Awake()
         {
             _canvas = GetComponent<Canvas>();

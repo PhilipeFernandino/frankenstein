@@ -1009,7 +1009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48280942, y: 0.000000015068068, z: -0.000000008307404, w: 0.87572545}
+  m_LocalRotation: {x: 0.48280942, y: -0.000000015068068, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: -3.1, y: 10.21, z: 5.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2000,10 +2000,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 703016278}
+  - component: {fileID: 703016279}
   - component: {fileID: 703016277}
   - component: {fileID: 703016276}
   - component: {fileID: 703016275}
-  - component: {fileID: 703016279}
   m_Layer: 5
   m_Name: Inventory Canvas
   m_TagString: Untagged
@@ -2113,6 +2113,7 @@ MonoBehaviour:
   _hotbarSlotsParent: {fileID: 1293571275}
   _storageSlotsParent: {fileID: 1825535651}
   _storageCanvas: {fileID: 508806270}
+  _hotbarManager: {fileID: 2041823459}
   _inventorySlots:
   - {fileID: 1024423126}
   - {fileID: 946644838}
@@ -2366,7 +2367,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720575070}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48280942, y: 0.000000015068066, z: -0.000000008307404, w: 0.87572545}
+  m_LocalRotation: {x: 0.48280942, y: -0.000000015068066, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
@@ -3020,6 +3021,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fea7fbadfb07174f98001e12962348a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &896288373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 896288374}
+  - component: {fileID: 896288376}
+  - component: {fileID: 896288375}
+  m_Layer: 5
+  m_Name: Selected Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &896288374
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896288373}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2041823458}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -624.00006, y: -417.8}
+  m_SizeDelta: {x: 156, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &896288375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896288373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8632076, g: 1, b: 0.8966882, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: fdc0da1d37c4c1d44a66470090ace2cb, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &896288376
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896288373}
+  m_CullTransparentMesh: 1
 --- !u!1001 &906539452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3866,7 +3942,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044324137}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48280942, y: 0.000000015068066, z: -0.000000008307404, w: 0.87572545}
+  m_LocalRotation: {x: 0.48280942, y: -0.000000015068066, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: 0, y: 0.33, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
@@ -3925,7 +4001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077639148}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48280942, y: 0.000000015068066, z: -0.000000008307404, w: 0.87572545}
+  m_LocalRotation: {x: 0.48280942, y: -0.000000015068066, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 1
@@ -4218,14 +4294,11 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: fd5ba4adb4f298146be8d47c4df27df6,
     type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: fd5ba4adb4f298146be8d47c4df27df6,
+  m_PointAction: {fileID: -6000692951680115452, guid: fd5ba4adb4f298146be8d47c4df27df6,
     type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: fd5ba4adb4f298146be8d47c4df27df6,
-    type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: fd5ba4adb4f298146be8d47c4df27df6,
-    type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: fd5ba4adb4f298146be8d47c4df27df6,
-    type: 3}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: -1646420229632854009, guid: fd5ba4adb4f298146be8d47c4df27df6,
     type: 3}
   m_MiddleClickAction: {fileID: 2095471320904733735, guid: fd5ba4adb4f298146be8d47c4df27df6,
@@ -4234,10 +4307,8 @@ MonoBehaviour:
     type: 3}
   m_ScrollWheelAction: {fileID: -5727570772086736702, guid: fd5ba4adb4f298146be8d47c4df27df6,
     type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: fd5ba4adb4f298146be8d47c4df27df6,
-    type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: fd5ba4adb4f298146be8d47c4df27df6,
-    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
@@ -5192,7 +5263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631594144}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48280942, y: 0.000000015068068, z: -0.000000008307404, w: 0.87572545}
+  m_LocalRotation: {x: 0.48280942, y: -0.000000015068068, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: -3.1, y: 10.21, z: 5.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6116,9 +6187,25 @@ MonoBehaviour:
     m_ActionId: 720363cf-1bb0-4b01-913c-a72b8187502a
     m_ActionName: General/Middle Click[/Mouse/middleButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2041823459}
+        m_TargetAssemblyTypeName: Systems.Inventory_System.HotbarManager, Assembly-CSharp
+        m_MethodName: HotbarNavigationWithScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6a41d1f1-ad22-4c8b-81a5-83060490a600
     m_ActionName: General/Scroll Wheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7a466b8d-9d9c-4fad-8d35-a275435e27a6
+    m_ActionName: General/Point[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: UI
@@ -6495,6 +6582,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1293571275}
+  - {fileID: 896288374}
   m_Father: {fileID: 703016278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -6518,6 +6606,8 @@ MonoBehaviour:
   _activateOnSpawn: 0
   _deactivateOnDispose: 0
   _inventorySlotsParent: {fileID: 1293571275}
+  _raycaster: {fileID: 2041823455}
+  _selectedImage: {fileID: 896288375}
   _inventorySlots: []
   _selectedHotbarIndex: 0
 --- !u!1001 &2053566855
@@ -7102,6 +7192,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1293571275}
     m_Modifications:
+    - target: {fileID: 6325808716160039839, guid: 6e8b6a36faa9d1e4f8da429668f2cdb8,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325808716160039839, guid: 6e8b6a36faa9d1e4f8da429668f2cdb8,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6325808716160039839, guid: 6e8b6a36faa9d1e4f8da429668f2cdb8,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7909216778490642540, guid: 6e8b6a36faa9d1e4f8da429668f2cdb8,
         type: 3}
       propertyPath: m_Pivot.x

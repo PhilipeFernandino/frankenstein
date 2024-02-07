@@ -312,6 +312,83 @@
                     "action": "Hotbar Navigation",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6db0cb12-df9c-4e10-8400-0ea7a876c1dc",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c8a1c90-82fb-414f-8fa0-219da327e370",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21ecc230-6453-415a-955a-ccdfb2ad051e",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "036e29e0-1e72-4af0-b18e-580c5cc1854b",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "79a95174-4389-4d95-ab73-74b72f804af8",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f719e6ee-3b4c-4fd7-8ba4-6d073b74d778",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "172e3d34-e60a-42d6-8f43-e298c3dad057",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Hotbar Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -321,7 +398,7 @@
             "actions": [
                 {
                     "name": "Left Click",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "39088ae9-e609-429f-a00a-10018603c3d0",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -330,7 +407,7 @@
                 },
                 {
                     "name": "Right Click",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "a157a36a-ce4f-49d2-8222-892c1889f804",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -339,7 +416,7 @@
                 },
                 {
                     "name": "Middle Click",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "720363cf-1bb0-4b01-913c-a72b8187502a",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -348,12 +425,21 @@
                 },
                 {
                     "name": "Scroll Wheel",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "6a41d1f1-ad22-4c8b-81a5-83060490a600",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Point",
+                    "type": "PassThrough",
+                    "id": "7a466b8d-9d9c-4fad-8d35-a275435e27a6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -398,6 +484,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Scroll Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb63f414-6cd9-4428-a738-322638e6cc0d",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Point",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
