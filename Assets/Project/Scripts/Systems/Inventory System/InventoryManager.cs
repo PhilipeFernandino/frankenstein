@@ -18,15 +18,28 @@ namespace Systems.Inventory_System
         [SerializeField] private UIDynamicCanvas _storageCanvas;
         [SerializeField] private HotbarManager _hotbarManager;
 
-        private int _hotbarSlotsCount;
-
         [SerializeField, ReadOnly] private List<InventorySlot> _inventorySlots = new();
         
+        private int _hotbarSlotsCount;
+        private bool _isStorageUIActive;
+
+
         private HashSet<InventorySlot> _dirtySlots;
 
         private IInventoryItemFactoryService _inventoryItemFactory;
 
         public List<InventorySlot> InventorySlots => _inventorySlots;
+
+        public bool IsStorageUIActive 
+        { 
+            get => _isStorageUIActive; 
+            private set
+            {
+                _isStorageUIActive = value;
+                _hotbarManager.SetClickCaptureActive(value);
+                _storageCanvas.SetActiveState(value);
+            } 
+        }
 
         public void CreateWithDrag(InventoryItemData itemData, in int stack)
         {
@@ -83,6 +96,11 @@ namespace Systems.Inventory_System
             }
         }
 
+        public void ToggleStorage()
+        {
+            IsStorageUIActive = !IsStorageUIActive;
+        }
+
         private void DirtyStorage(InventorySlot dirtySlot)
         {
             Debug.Log($"{GetType()} - {dirtySlot} is dirty");
@@ -93,25 +111,10 @@ namespace Systems.Inventory_System
         {
             if (_dirtySlots.Count > 0)
             {
-                new HotbarChanged(_dirtySlots).Invoke(this);
+                new HotbarChanged().Invoke(this);
                 _dirtySlots.Clear();
             }
 
-        }
-
-        #region Input
-        public void ToggleStorage()
-        {
-            _storageCanvas.ToggleSelf();
-            _hotbarManager.ToggleClickCapture();
-        }
-
-        #endregion
-
-        public void SetStorageActive(bool state)
-        {
-            _storageCanvas.SetActiveState(state);
-            _hotbarManager.SetClickCaptureActive(state);
         }
 
         protected override void OnInitialize()
@@ -120,7 +123,8 @@ namespace Systems.Inventory_System
 
             _dirtySlots = new(_inventorySlots.Count);
 
-            SetStorageActive(false);
+            IsStorageUIActive = false;
+
             GetInventorySlots();
 
             ServiceLocator.Set<IInventoryManagerService>(this);
@@ -157,5 +161,7 @@ namespace Systems.Inventory_System
         public void CreateWithDrag(InventoryItemData itemData, in int stack);
         public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked);
         public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int amountAdded);
+
+        public bool IsStorageUIActive { get; }
     }
 }

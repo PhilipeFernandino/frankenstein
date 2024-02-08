@@ -82,6 +82,8 @@ namespace Systems.Inventory_System
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            Debug.Log("On pointer click");
+
             if (_isDragging)
             {
                 PointerClickWhileDragEventHandler(eventData);

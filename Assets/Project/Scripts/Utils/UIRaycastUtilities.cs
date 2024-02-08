@@ -4,20 +4,28 @@ using UnityEngine;
 
 namespace Utils.UI
 {
-    public static class RaycastUtilities
+    public static class UIRaycastUtilities
     {
+        private static List<RaycastResult> results = new();
+
         public static bool PointerIsOverUI(Vector2 screenPos)
         {
-            var hitObject = UIRaycast(ScreenPosToPointerData(screenPos));
+            var hitObject = UIRaycastFirst(screenPos);
             return hitObject != null && hitObject.layer == LayerMask.NameToLayer("UI");
         }
 
-        static GameObject UIRaycast(PointerEventData pointerData)
+        public static List<RaycastResult> UIRaycastAll(Vector2 screenPos)
         {
-            var results = new List<RaycastResult>();
+            var pointerData = ScreenPosToPointerData(screenPos);
             EventSystem.current.RaycastAll(pointerData, results);
+            return results;
+        }
 
-            return results.Count < 1 ? null : results[0].gameObject;
+        public static GameObject UIRaycastFirst(Vector2 screenPos)
+        {
+            var pointerData = ScreenPosToPointerData(screenPos);
+            EventSystem.current.RaycastAll(pointerData, results);
+            return results.Count > 0 ? results[0].gameObject : null;
         }
 
         static PointerEventData ScreenPosToPointerData(Vector2 screenPos)

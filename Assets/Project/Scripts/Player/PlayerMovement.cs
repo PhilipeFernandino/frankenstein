@@ -7,12 +7,9 @@ namespace Player
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _speed;
 
-        private void Update()
+        public void TryToMove(Vector2 direction)
         {
-            var x = Input.GetAxis("Horizontal");
-            var y = Input.GetAxis("Vertical"); 
-        
-            Vector2 xy = new Vector2(x, y);
+            Vector2 xy = direction;
 
             if (xy.magnitude > 1)
             {
