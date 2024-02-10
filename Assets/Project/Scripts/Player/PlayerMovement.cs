@@ -17,7 +17,8 @@ namespace Player
             }
 
             var fs = _speed * Time.deltaTime;
-            var motion = (xy.y * transform.forward + xy.x * transform.right) * fs;
+            var motion = (xy.y * transform.up + xy.x * transform.right) * fs;
+            Debug.Log(motion);
             _characterController.Move(motion);
         }
     }
