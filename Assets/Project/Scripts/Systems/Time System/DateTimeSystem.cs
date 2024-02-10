@@ -12,11 +12,8 @@ namespace Systems.Time_System
         private int _hours;
 
         private int _days;
-        private int _weeks;
         private int _months;
         private int _years;
-
-        private readonly int _weekDays = 7;
 
         public float Seconds
         {
@@ -66,25 +63,11 @@ namespace Systems.Time_System
             {
                 _days = value;
                 
-                if (_days >= _weekDays)
-                {
-                    Weeks += _days / _weekDays;
-                }
-
                 if (_days >= _timeRateData.DaysPerMonth)
                 {
                     Months += _days / _timeRateData.DaysPerMonth;
                     _days %= _timeRateData.DaysPerMonth;
                 }
-            }
-        }
-
-        public int Weeks
-        {
-            get => _weeks;
-            set
-            {
-                _weeks = value;
             }
         }
 

@@ -5,7 +5,7 @@ namespace Systems.Inventory_System.Test
 {
     public class InventoryManagerTest : MonoBehaviour
     {
-        [SerializeField] private InventoryItemData _itemData;
+        [SerializeField] private ItemData _itemData;
         [SerializeField] private int _stackToAdd;
 
         [Button]

@@ -29,8 +29,13 @@ namespace Systems.Inventory_System
 
         public event Action<InventoryItem> ItemChanged; 
 
-        public int TryAddOrStackItem(InventoryItemData itemData, in int stack, Transform parent = null)
+        public int TryAddOrStackItem(ItemData itemData, in int stack, Transform parent = null)
         {
+            if (stack == 0)
+            {
+                return 0; 
+            }
+
             int totalAmountAdded = 0;
 
             if (_item != null)
@@ -63,7 +68,7 @@ namespace Systems.Inventory_System
             Item = null;
         }
 
-        public bool MatchItemData(InventoryItemData itemData)
+        public bool MatchItemData(ItemData itemData)
         {
             return _item != null && _item.ItemData == itemData;
         }

@@ -9,7 +9,7 @@ namespace Systems.Inventory_System
     {
         [SerializeField] private InventoryItem _prefab;
 
-        public InventoryItem Create(InventoryItemData itemData, Transform parentOnDrag)
+        public InventoryItem Create(ItemData itemData, Transform parentOnDrag)
         {
             var inventoryItem = Instantiate(_prefab);
             inventoryItem.Setup(itemData, parentOnDrag);
@@ -26,7 +26,7 @@ namespace Systems.Inventory_System
     [DynamicService]
     public interface IInventoryItemFactoryService : IService
     {
-        public InventoryItem Create(InventoryItemData itemData, Transform parentOnDrag);
+        public InventoryItem Create(ItemData itemData, Transform parentOnDrag);
     }
 }
 

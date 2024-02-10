@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0bed35b75c5024895867758448d0ea, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  <Properties>k__BackingField: 6
-  <Type>k__BackingField: 2
   <Name>k__BackingField: Axe
   <Description>k__BackingField: A fucking axe
   <SellPrice>k__BackingField: 0
-  <MaxStack>k__BackingField: 32
+  <MaxStack>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 21300000, guid: 0af51eab9b6041b46944039eefefb84b,
     type: 3}
   <HoldablePrefab>k__BackingField: {fileID: 0}
+  <Type>k__BackingField: 2
+  <Properties>k__BackingField: 6

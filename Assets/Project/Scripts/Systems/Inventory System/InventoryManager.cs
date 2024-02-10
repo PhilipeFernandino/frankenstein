@@ -41,14 +41,14 @@ namespace Systems.Inventory_System
             } 
         }
 
-        public void CreateWithDrag(InventoryItemData itemData, in int stack)
+        public void CreateWithDrag(ItemData itemData, in int stack)
         {
             var itemOnDrag = _inventoryItemFactory.Create(itemData, transform);
             itemOnDrag.Stack = stack;
             itemOnDrag.StartDrag();
         }
 
-        public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int totalAmountStacked)
+        public void AddToSlot(InventorySlot slot, ItemData itemData, in int stack, out int totalAmountStacked)
         {
             totalAmountStacked = slot.TryAddOrStackItem(itemData, stack, transform);
 
@@ -58,8 +58,12 @@ namespace Systems.Inventory_System
             }
         }
 
-        public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked)
+        public void AddItemsToInventory(ItemData itemData, in int stack, out int totalAmountStacked)
         {
+            Debug.Log($"{GetType()} - Adding Item to Inventory\n" +
+                $"\tItem: {itemData}\n" +
+                $"\tStack: {stack}");
+
             totalAmountStacked = 0;
             int leftToStack = stack;
 
@@ -69,6 +73,7 @@ namespace Systems.Inventory_System
                 for (int i = 0; i < _inventorySlots.Count; i++)
                 {
                     AddToSlot(_inventorySlots[i], itemData, leftToStack, out int amountStacked);
+                    totalAmountStacked += amountStacked;
                     leftToStack -= amountStacked;
                     
                     if (leftToStack == 0)
@@ -86,6 +91,7 @@ namespace Systems.Inventory_System
                 if (!slot.HasItem)
                 {
                     AddToSlot(_inventorySlots[i], itemData, leftToStack, out int amountStacked);
+                    totalAmountStacked += amountStacked;
                     leftToStack -= amountStacked;
 
                     if (leftToStack == 0)
@@ -158,9 +164,9 @@ namespace Systems.Inventory_System
     [DynamicService]
     public interface IInventoryManagerService : IService
     {
-        public void CreateWithDrag(InventoryItemData itemData, in int stack);
-        public void AddItemsToInventory(InventoryItemData itemData, in int stack, out int totalAmountStacked);
-        public void AddToSlot(InventorySlot slot, InventoryItemData itemData, in int stack, out int amountAdded);
+        public void CreateWithDrag(ItemData itemData, in int stack);
+        public void AddItemsToInventory(ItemData itemData, in int stack, out int totalAmountStacked);
+        public void AddToSlot(InventorySlot slot, ItemData itemData, in int stack, out int amountAdded);
 
         public bool IsStorageUIActive { get; }
     }

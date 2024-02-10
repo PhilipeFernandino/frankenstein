@@ -18,7 +18,7 @@ namespace Systems.Inventory_System
 
         [Header("Information")]
         [SerializeField, ReadOnly] private InventorySlot _slot;
-        [SerializeField, ReadOnly] private InventoryItemData _itemData;
+        [SerializeField, ReadOnly] private ItemData _itemData;
         [SerializeField, ReadOnly] private Image _iconImage;
         [SerializeField, ReadOnly] private Transform _parentWhenDragging;
         [SerializeField, ReadOnly] private int _stack;
@@ -32,7 +32,7 @@ namespace Systems.Inventory_System
         public InventorySlot CurrentSlot => _slot;
         public int StackCurrentCapacity => ItemData.MaxStack - Stack;
 
-        public InventoryItemData ItemData
+        public ItemData ItemData
         {
             get => _itemData;
             set
@@ -74,7 +74,7 @@ namespace Systems.Inventory_System
             transform.position = _slot.transform.position;
         }
 
-        public void Setup(InventoryItemData itemData, Transform parentOnDrag)
+        public void Setup(ItemData itemData, Transform parentOnDrag)
         {
             _parentWhenDragging = parentOnDrag;
             ItemData = itemData;
