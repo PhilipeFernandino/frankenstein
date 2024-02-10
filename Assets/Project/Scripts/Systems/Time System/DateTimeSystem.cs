@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Systems.Time_System
 {
-    public class DateTime : MonoBehaviour
+    public class DateTimeSystem : MonoBehaviour
     {
         [SerializeField] private TimeRateData _timeRateData;
 
@@ -113,7 +113,7 @@ namespace Systems.Time_System
 
         private void Update()
         {
-            _seconds += Time.deltaTime;
+            Seconds += Time.deltaTime * (60 * _timeRateData.MinutesPerSecond);
         }
     }
 }

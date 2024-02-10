@@ -70,6 +70,7 @@ namespace Systems.Inventory_System
             _slot = inventorySlot;
             _slot.SetInventoryItem(this);
             transform.SetParent(_slot.transform, false);
+            transform.SetAsFirstSibling();
             transform.position = _slot.transform.position;
         }
 

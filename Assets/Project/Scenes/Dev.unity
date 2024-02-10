@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18362689, g: 0.22787759, b: 0.29804808, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3982,7 +3982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e91e06e5f1336479741b8186d1690c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeRateData: {fileID: 0}
+  _timeRateData: {fileID: 11400000, guid: b61f712e98f8b144daa32fa58477e44a, type: 2}
 --- !u!4 &1028199121
 Transform:
   m_ObjectHideFlags: 0
@@ -4271,7 +4271,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.48280942, y: -0.000000015068066, z: 0.000000008307404, w: 0.87572545}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1368489573}
@@ -4505,6 +4505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1259140751}
+  - component: {fileID: 1259140752}
   - component: {fileID: 1259140750}
   - component: {fileID: 1259140749}
   - component: {fileID: 1259140748}
@@ -4599,6 +4600,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1259140752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259140747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54b6a39d8b9d584458979ab7f7e6ef6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeText: {fileID: 1075866480}
 --- !u!1 &1272192613
 GameObject:
   m_ObjectHideFlags: 0
