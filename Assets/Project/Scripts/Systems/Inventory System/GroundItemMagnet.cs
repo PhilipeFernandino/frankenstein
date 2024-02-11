@@ -6,7 +6,7 @@ using Utils;
 
 namespace Systems.Inventory_System
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Collider2D))]
     public class GroundItemMagnet : MonoBehaviour
     {
         [SerializeField] private float _attractionForce;
@@ -16,7 +16,7 @@ namespace Systems.Inventory_System
 
         private IInventoryManagerService _inventoryManager;
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.TryGetComponent(out GroundItem groundItem))
             {
@@ -24,7 +24,7 @@ namespace Systems.Inventory_System
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             if (other.TryGetComponent(out GroundItem groundItem) && _onRangeItems.Contains(groundItem))
             {

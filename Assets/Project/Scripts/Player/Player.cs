@@ -6,7 +6,7 @@ namespace Player
 {
     public class Player : Actor
     {
-        [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] private PlayerMovement2D _playerMovement;
 
         public void TryToMove(Vector2 direction)
         {
