@@ -1,4 +1,5 @@
 ﻿
+using Coimbra.Services.Events;
 using UnityEngine;
 
 namespace Systems.Time_System
@@ -33,6 +34,8 @@ namespace Systems.Time_System
             get => _minutes;
             set
             {
+                new MinutePassed(value - _minutes).Invoke(this);    
+                
                 _minutes = value;
                 if (_minutes >= 60)
                 {
@@ -97,6 +100,16 @@ namespace Systems.Time_System
         private void Update()
         {
             Seconds += Time.deltaTime * (60 * _timeRateData.MinutesPerSecond);
+        }
+    }
+
+    public readonly partial struct MinutePassed : IEvent
+    {
+        public readonly int MinutesPassed;
+
+        public MinutePassed(int minutesPassed)
+        {
+            MinutesPassed = minutesPassed;
         }
     }
 }

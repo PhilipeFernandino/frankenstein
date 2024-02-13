@@ -29,8 +29,6 @@ namespace Systems.Inventory_System
         {
             _itemData = itemData;
             Stack = stack;
-
-            transform.rotation = Quaternion.Euler(0, 90, 0);
             _spriteRenderer.sprite = _itemData.Icon;
         }
     }

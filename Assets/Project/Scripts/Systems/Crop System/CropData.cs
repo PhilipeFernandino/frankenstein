@@ -1,21 +1,20 @@
 ﻿using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using Systems.Inventory_System;
 using UnityEngine;
 
-namespace Assets.Project.Scripts.Systems.Crop_System
+namespace Systems.Crop_System
 {
     [CreateAssetMenu(fileName = "Crop Data", menuName = "Crop System/Crop Data", order = 1)]
     public class CropData : ScriptableObject
     {
-        [field: SerializeField] public List<CropPhaseData> _cropPhases = new();
+        [field: SerializeField] public List<CropPhaseData> CropPhases { get; private set; } = new();
     }
 
     [System.Serializable]
     public class CropPhaseData
     {
-        [field: SerializeField] public Texture2D Texture { get; private set; }
+        [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public int PhaseHours { get; private set; }
 
         [field: Header("Harvest")]

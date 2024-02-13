@@ -12,10 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08ddc6801d614f44c953275462c8a6c6, type: 3}
   m_Name: Potato
   m_EditorClassIdentifier: 
-  _cropPhases:
-  - <Texture>k__BackingField: {fileID: 2800000, guid: dd5240ba511e82841a4fbdb21e11df45,
+  <CropPhases>k__BackingField:
+  - <Sprite>k__BackingField: {fileID: 1151604559, guid: ddbfd354d8be7cf4080d9aa5183fc076,
       type: 3}
-    <PhaseHours>k__BackingField: 12
+    <PhaseHours>k__BackingField: 3
     <CanBeHarvested>k__BackingField: 0
     <ItemData>k__BackingField: {fileID: 0}
     <ItemAmount>k__BackingField: 0
+  - <Sprite>k__BackingField: {fileID: 521193045, guid: ddbfd354d8be7cf4080d9aa5183fc076,
+      type: 3}
+    <PhaseHours>k__BackingField: 3
+    <CanBeHarvested>k__BackingField: 0
+    <ItemData>k__BackingField: {fileID: 0}
+    <ItemAmount>k__BackingField: 0
+  - <Sprite>k__BackingField: {fileID: -870056064, guid: ddbfd354d8be7cf4080d9aa5183fc076,
+      type: 3}
+    <PhaseHours>k__BackingField: 3
+    <CanBeHarvested>k__BackingField: 0
+    <ItemData>k__BackingField: {fileID: 0}
+    <ItemAmount>k__BackingField: 0
+  - <Sprite>k__BackingField: {fileID: -116971610, guid: ddbfd354d8be7cf4080d9aa5183fc076,
+      type: 3}
+    <PhaseHours>k__BackingField: 3
+    <CanBeHarvested>k__BackingField: 1
+    <ItemData>k__BackingField: {fileID: 11400000, guid: 78a6ec2623d432343966dec2ae96b6be,
+      type: 2}
+    <ItemAmount>k__BackingField: 1
