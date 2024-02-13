@@ -22,6 +22,11 @@ public static class Vector3Extension
         return (vector.x, vector.y, vector.z);
     }
 
+    public static Vector3 FromValue(float value)
+    {
+        return new Vector3(value, value, value);
+    }
+
     public static Vector3 GetPositionOnRange(this Vector3 origin, Vector2 input, float range)
     {
         return origin + new Vector3(input.x, 0, input.y) * range;

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ddc6801d614f44c953275462c8a6c6, type: 3}
+  m_Name: Potato
+  m_EditorClassIdentifier: 
+  _cropPhases:
+  - <Texture>k__BackingField: {fileID: 2800000, guid: dd5240ba511e82841a4fbdb21e11df45,
+      type: 3}
+    <PhaseHours>k__BackingField: 12
+    <CanBeHarvested>k__BackingField: 0
+    <ItemData>k__BackingField: {fileID: 0}
+    <ItemAmount>k__BackingField: 0

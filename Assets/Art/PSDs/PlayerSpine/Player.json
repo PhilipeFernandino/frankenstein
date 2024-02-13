@@ -1,0 +1,65 @@
+{ "skeleton": { "images": "C:/Users/phili/Documentos/Desenvolvimento/Games/Unity/Projeto Frankenstein/Assets/Art/PSDs/PlayerSpine/" },
+"PhotoshopToSpine": { "scale": 1, "padding": 0, "trim": true },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Mao direita", "bone": "root", "attachment": "Mao direita" },
+	{ "name": "Mao esquerda", "bone": "root", "attachment": "Mao esquerda" },
+	{ "name": "Pe direito", "bone": "root", "attachment": "Pe direito" },
+	{ "name": "Pe esquerdo", "bone": "root", "attachment": "Pe esquerdo" },
+	{ "name": "Perna Direita", "bone": "root", "attachment": "Perna Direita" },
+	{ "name": "Perna Esquerda", "bone": "root", "attachment": "Perna Esquerda" },
+	{ "name": "Antebraco Esquerdo", "bone": "root", "attachment": "Antebraco Esquerdo" },
+	{ "name": "Braco Esquerdo", "bone": "root", "attachment": "Braco Esquerdo" },
+	{ "name": "Antebraco Direito", "bone": "root", "attachment": "Antebraco Direito" },
+	{ "name": "Braco Direito", "bone": "root", "attachment": "Braco Direito" },
+	{ "name": "Torso", "bone": "root", "attachment": "Torso" },
+	{ "name": "Face", "bone": "root", "attachment": "Face" },
+	{ "name": "Avental", "bone": "root", "attachment": "Avental" }
+],
+"skins": {
+	"default": {
+		"Mao direita": {
+			"Mao direita": { "x": 343, "y": -366.5, "width": 38, "height": 39 }
+		},
+		"Mao esquerda": {
+			"Mao esquerda": { "x": 156, "y": -366.5, "width": 38, "height": 39 }
+		},
+		"Pe direito": {
+			"Pe direito": { "x": 282, "y": -436.5, "width": 60, "height": 49 }
+		},
+		"Pe esquerdo": {
+			"Pe esquerdo": { "x": 218, "y": -435.5, "width": 60, "height": 51 }
+		},
+		"Perna Direita": {
+			"Perna Direita": { "x": 277, "y": -375.5, "width": 54, "height": 97 }
+		},
+		"Perna Esquerda": {
+			"Perna Esquerda": { "x": 222.5, "y": -375.5, "width": 55, "height": 97 }
+		},
+		"Antebraco Esquerdo": {
+			"Antebraco Esquerdo": { "x": 174.5, "y": -284, "width": 73, "height": 144 }
+		},
+		"Braco Esquerdo": {
+			"Braco Esquerdo": { "x": 189, "y": -255, "width": 76, "height": 92 }
+		},
+		"Antebraco Direito": {
+			"Antebraco Direito": { "x": 325.5, "y": -283, "width": 73, "height": 144 }
+		},
+		"Braco Direito": {
+			"Braco Direito": { "x": 311, "y": -252.5, "width": 76, "height": 89 }
+		},
+		"Torso": {
+			"Torso": { "x": 248.5, "y": -281.5, "width": 123, "height": 151 }
+		},
+		"Face": {
+			"Face": { "x": 251, "y": -132, "width": 242, "height": 190 }
+		},
+		"Avental": {
+			"Avental": { "x": 249.5, "y": -317.5, "width": 133, "height": 193 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}

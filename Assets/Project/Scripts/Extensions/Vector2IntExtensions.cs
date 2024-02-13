@@ -8,4 +8,9 @@ public static class Vector2IntExtensions
     {
         return new Tuple<int, int>(vector.x, vector.y);
     }
+
+    public static Vector2Int Scalar(this Vector2Int vector, int scalar)
+    {
+        return new Vector2Int(vector.x * scalar, vector.y * scalar);
+    }
 }
