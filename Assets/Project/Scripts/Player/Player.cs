@@ -7,6 +7,7 @@ namespace Player
     public class Player : Actor
     {
         [SerializeField] private PlayerMovement2D _playerMovement;
+        [SerializeField] private PlayerEquip _playerEquip;
 
         public void TryToMove(Vector2 direction)
         {
@@ -15,12 +16,11 @@ namespace Player
 
         public void TryToInteract()
         {
-
         }
 
         public void TryToUseCurrentItem(Vector2 position)
         {
-            Debug.Log(position);
+            _playerEquip.TryToUse();
         }
     }
 }

@@ -3,7 +3,7 @@ using Coimbra.Services.Events;
 using Interaction;
 using NaughtyAttributes;
 using System;
-using Systems.Inventory_System;
+using Systems.Item_System;
 using Systems.Time_System;
 using UnityEngine;
 using Utils;

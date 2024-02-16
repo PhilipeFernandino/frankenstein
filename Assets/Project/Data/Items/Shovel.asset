@@ -9,15 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f0bed35b75c5024895867758448d0ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 0be4ca62ad8d0944fa2da6bd679e9db5, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
-  <Properties>k__BackingField: 6
-  <Type>k__BackingField: 2
   <Name>k__BackingField: Shovel
-  <Description>k__BackingField: It's... a shovel
+  <Description>k__BackingField: Shovel
   <SellPrice>k__BackingField: 0
   <MaxStack>k__BackingField: 1
   <Icon>k__BackingField: {fileID: 21300000, guid: 814d1fe18d88f6047aa6bc8cec716e87,
     type: 3}
-  <HoldablePrefab>k__BackingField: {fileID: 0}
+  <Equipment>k__BackingField: {fileID: 8550544471487761697, guid: 69d9701b9f448ab44ad723421bd83921,
+    type: 3}

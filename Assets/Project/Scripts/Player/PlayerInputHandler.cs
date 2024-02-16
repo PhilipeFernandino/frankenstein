@@ -16,12 +16,18 @@ namespace Player
 
         public void UseCurrentItemInput(InputAction.CallbackContext context)
         {
-            _player.TryToUseCurrentItem(Input.mousePosition);
+            if (context.performed)
+            {
+                _player.TryToUseCurrentItem(Input.mousePosition);
+            } 
         }
 
         public void InteractInput(InputAction.CallbackContext context)
         {
-            _player.TryToInteract();
+            if (context.performed)
+            {
+                _player.TryToInteract();
+            }
         }
 
         private void Awake()

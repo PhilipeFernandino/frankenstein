@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0be4ca62ad8d0944fa2da6bd679e9db5, type: 3}
-  m_Name: Axe
+  m_Name: Hoe
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Axe
+  <Name>k__BackingField: Hoe
   <Description>k__BackingField: Axe
   <SellPrice>k__BackingField: 0
   <MaxStack>k__BackingField: 1
-  <Icon>k__BackingField: {fileID: 21300000, guid: 0af51eab9b6041b46944039eefefb84b,
+  <Icon>k__BackingField: {fileID: 21300000, guid: 220c819915792504a9a97a9db2d7576c,
     type: 3}
-  <Equipment>k__BackingField: {fileID: -8789824106236826602, guid: 1a88580494870cf4c80a1c8de124286c,
+  <Equipment>k__BackingField: {fileID: 8637774159052307557, guid: c86b42cc3c21be343a66aa4707bd901d,
     type: 3}
